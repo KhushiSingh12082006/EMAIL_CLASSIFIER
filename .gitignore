@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+
+# Django
+db.sqlite3
+
+# ML model (VERY IMPORTANT)
+model/
+*.bin
+*.pt
+*.safetensors
+
+# OS
+.DS_Store
+Thumbs.db

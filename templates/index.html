@@ -1,0 +1,315 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AETHER SCAN</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        background-color: #000;
+        margin: 0;
+        min-height: 100vh;
+        overflow: hidden; 
+        color: white;
+        text-align: center;
+        font-family: 'Orbitron', sans-serif;
+    }
+
+    #bg-layer {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        z-index: -1;
+        background-size: cover;
+        background-position: center;
+        transition: background-image 2s ease-in-out;
+        filter: brightness(0.65);
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-12px); }
+        100% { transform: translateY(0px); }
+    }
+
+.brand-header { 
+            font-family: 'Abril Fatface', serif; 
+            font-size: 4.5rem;
+            font-weight: 900; 
+            margin-top: 20px;
+            letter-spacing: 1px; 
+            display: inline-block;
+            text-decoration: none !important;
+
+            background: linear-gradient(
+                to right, 
+                #ff0000 0%,
+                #98FF98 20%,
+                #ffffff 30%,
+                #00CCFF 50%,
+                #ffffff 70%,
+                #ff0000 100%
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fattyShine 3s linear infinite;
+            filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.9));
+        }
+
+        @keyframes fattyShine {
+            to { background-position: 200% center; }
+        }
+
+    .brand-sub { 
+        font-family: 'Orbitron', sans-serif; 
+        font-size: 0.9rem; 
+        margin-bottom: 25px; 
+        color: #fff;
+        opacity: 0.8;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+    }
+
+    .glass {
+        background: rgba(255, 255, 255, 0.07);
+        border-radius: 16px;
+        padding: 0;
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        height: 70vh; 
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .col-md-3:nth-child(1) .glass { animation-delay: 0s; }
+    .col-md-4 .glass { animation-delay: 1s; }
+    .col-md-3:nth-child(3) .glass { animation-delay: 2s; }
+
+    .glass-header {
+        background: rgba(0, 0, 0, 0.85);
+        padding: 12px 15px;
+        font-size: 0.65rem;
+        color: #00f2ff;
+        text-align: left;
+        letter-spacing: 2px;
+        border-bottom: 1px solid rgba(0, 242, 255, 0.2);
+        text-transform: uppercase;
+    }
+
+    .glass-body {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex-grow: 1;
+    }
+
+    .terminal-inner { 
+        background: rgba(0, 0, 0, 0.3); 
+        border-radius: 10px; 
+        padding: 15px; 
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        height: 100%;
+    }
+    
+    textarea { 
+        background: transparent; border: none; width: 100%; height: 100%; 
+        color: #fff; font-family: monospace; outline: none; resize: none; font-size: 0.9rem;
+    }
+
+    .gauge-container { 
+        position: relative; width: 100%; height: 260px; margin: 0 auto; 
+    }
+    svg { width: 110%; height: 110%; transform: translate(-5%, -5%); }
+    .gauge-arc { fill: none; stroke-width: 22; stroke-dasharray: 10, 4; }
+    .safe-path { stroke: rgb(128, 255, 204); }
+    .danger-path { stroke: rgb(254, 52, 126); }
+
+    .needle {
+        position: absolute; width: 7px; height: 175px; background: #fff; 
+        bottom: 25px; left: 50%; margin-left: -3.5px;
+        transform-origin: bottom center; transition: 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+        clip-path: polygon(50% 0%, 20% 100%, 80% 100%);
+    }
+
+    #status { font-family: 'Playfair Display', serif; font-size: 2.8rem; margin: 5px 0; }
+    #conf-text { font-family: "Comic Sans MS", cursive; font-size: 1.2rem; color: #fff; }
+    #type-text { font-family: 'Castellar', serif; font-size: 1.1rem; color: #e6c7a1; margin-top: 5px; }
+
+    .history-card { 
+        background: rgba(0, 0, 0, 0.2); border-radius: 8px; 
+        padding: 15px; height: 100%; overflow-y: auto; 
+        text-align: left; 
+        font-family: "Comic Sans MS", cursive; 
+        font-size: 1.1rem; 
+    }
+    .hist-entry { border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 10px 0; }
+
+    .scan-btn {
+        font-family: 'Playfair Display', serif; font-weight: 700; background: rgba(0, 242, 255, 0.05);
+        color: #00f2ff; border: 1px solid rgba(0, 242, 255, 0.4); padding: 12px; margin-top: 15px;
+        border-radius: 8px; transition: 0.3s; text-transform: uppercase; font-size: 0.9rem;
+    }
+    .scan-btn:hover { background: rgba(0, 242, 255, 0.2); border-color: #00f2ff; }
+
+</style>
+</head>
+
+<body>
+
+<!-- FUNCTIONAL ONLY: CSRF SAFE STORAGE -->
+<input type="hidden" id="csrf-token" value="{{ csrf_token }}">
+
+<div id="bg-layer"></div>
+
+<h1 class="brand-header">AETHER SCAN</h1>
+<p class="brand-sub">Neural Intelligence Detector</p>
+
+<div class="container-fluid px-5">
+    <div class="row justify-content-center g-4">
+        
+        <div class="col-md-3">
+            <div class="glass">
+                <div class="glass-header">DECRYPT_INPUT</div>
+                <div class="glass-body">
+                    <div class="terminal-inner">
+                        <textarea id="email-text" placeholder="Awaiting Signal..."></textarea>
+                    </div>
+                    <button class="scan-btn" onclick="scan()">SCAN EMAIL</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="glass">
+                <div class="glass-header">ANALYSIS_CORE</div>
+                <div class="glass-body">
+                    <div class="gauge-container">
+                        <svg viewBox="0 0 220 120">
+                            <path class="gauge-arc safe-path" d="M 25 110 A 85 85 0 0 1 110 25" />
+                            <path class="gauge-arc danger-path" d="M 110 25 A 85 85 0 0 1 195 110" />
+                        </svg>
+                        <div class="needle" id="needle" style="transform: rotate(-90deg);"></div>
+                    </div>
+                    <div>
+                        <h2 id="status">IDLE</h2>
+                        <div id="conf-text">Waiting...</div>
+                        <div id="type-text">STANDBY</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="glass">
+                <div class="glass-header" style="color: #FF8C00;">SESSION_HISTORY</div>
+                <div class="glass-body">
+                    <div class="history-card" id="history-list">
+                        <div class="text-muted" style="font-size: 1rem;">Log Active...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// Background logic (UNCHANGED)
+const images = [
+    "{% static 'images/bg1.jpg' %}",
+    "{% static 'images/bg2.jpg' %}",
+    "{% static 'images/bg3.jpg' %}",
+    "{% static 'images/bg4.jpg' %}",
+    "{% static 'images/bg5.jpg' %}"
+];
+let idx = 0;
+const bgLayer = document.getElementById('bg-layer');
+function updateBackground() {
+    bgLayer.style.backgroundImage = `url('${images[idx]}')`;
+    idx = (idx + 1) % images.length;
+}
+updateBackground();
+setInterval(updateBackground, 5000);
+
+// Core Scan Function (FIXED ONLY)
+async function scan(){
+    const text = document.getElementById("email-text").value.trim();
+    if(!text) return;
+
+    document.getElementById("status").innerText = "SCANNING...";
+
+    const fd = new FormData(); 
+    fd.append("email", text);
+
+    const csrftoken = document.getElementById("csrf-token").value;
+
+    try {
+        const response = await fetch("/predict/", { 
+            method: "POST", 
+            headers: { "X-CSRFToken": csrftoken }, 
+            body: fd 
+        });
+
+        const data = await response.json();
+
+        if (data.error) {
+            document.getElementById("status").innerText = "ERROR";
+            document.getElementById("conf-text").innerText = data.error;
+            return;
+        }
+
+        const confidence = data.Confidence ?? 0;
+        const isSpam = data.Spam_or_Not === "SPAM";
+        const emailType = data.Type || "General";
+
+        const needle = document.getElementById("needle");
+        needle.style.transition = "none";
+        needle.style.transform = "rotate(-90deg)";
+        requestAnimationFrame(() => {
+            needle.style.transition = "1.8s cubic-bezier(0.19,1,0.22,1)";
+            needle.style.transform = `rotate(${isSpam ? confidence * 90 : -confidence * 90}deg)`;
+        });
+
+        const statusEl = document.getElementById("status");
+        statusEl.innerText = isSpam ? "NON SAFE" : "SAFE";
+        statusEl.style.color = isSpam ? "rgb(254, 52, 126)" : "rgb(128, 255, 204)";
+        
+        document.getElementById("conf-text").innerText =
+            `Confidence: ${(confidence * 100).toFixed(1)}%`;
+        document.getElementById("type-text").innerText =
+            `CATEGORY: ${emailType}`;
+
+        const list = document.getElementById("history-list");
+        if (list.innerHTML.includes("Log Active")) list.innerHTML = "";
+
+        const item = document.createElement("div");
+        item.className = "hist-entry";
+        const statusColor = isSpam ? 'rgb(254, 52, 126)' : 'rgb(128, 255, 204)';
+        item.innerHTML = `
+            <span style="color:#00f2ff">
+                [${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}]
+            </span>
+            <span style="color:${statusColor}">
+                ${isSpam ? 'NON-SAFE' : 'SAFE'}
+            </span>
+        `;
+        list.prepend(item);
+
+    } catch (e) {
+        document.getElementById("status").innerText = "OFFLINE";
+        console.error("Fetch Error:", e);
+    }
+}
+</script>
+
+</body>
+</html>
