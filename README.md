@@ -1,6 +1,6 @@
 📧 AETHER SCAN – AI-Based Email Security Detection System
 
-An intelligent Email Classification & Security Detection System built using Django + BERT, designed to detect whether an email is SAFE or NON-SAFE, along with identifying the email category such as phishing, promotional, security alert, etc.
+An intelligent Email Classification & Security Detection System built using Django + BERT, designed to detect whether an email is SAFE or NON-SAFE, along with identifying the email category such as phishing, promotional, security alert, etc. Screenshots are also present in static file, view it to get more clear vision of Project 
 
 This project was developed as part of the IBM Internship / IBM Tecnovate Program.
 
