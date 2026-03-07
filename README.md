@@ -1,78 +1,93 @@
-📧 AETHER SCAN
+# 📧 AETHER SCAN
+### AI-Powered Email Security & Classification System
+**Developed for the IBM Tecnovate Program / IBM Internship**
 
-1.AI-Based Email Security Detection System
+---
 
-AETHER SCAN is an intelligent Email Classification & Security Detection System built using Django + BERT.
-It analyzes email content to determine whether an email is SAFE or NON-SAFE and also identifies the email category such as phishing, promotional, scam, or security alert.
+## 📖 Project Overview
+**AETHER SCAN** is an intelligent Email Classification & Security Detection System built using **Django** and **BERT**. It analyzes email content to determine whether an email is **SAFE** or **NON-SAFE** and identifies categories such as phishing, promotional emails, scams, fraud attempts, or security alerts.
 
-This project was developed as part of the IBM Tecnovate Program / IBM Internship.
+The system combines **deep learning (BERT)** with **rule-based classification** to provide a reliable email security detection mechanism through an interactive web interface.
 
-Presentation Link
-https://1drv.ms/p/c/2034eba96d41ae6d/IQCmoQarXM6ySaTr-SXt8HqKAZxC_hIi5mAf1QWsOskoEUQ?e=rf2I9d
+---
 
-Screenshots of the UI are available in the static/ folder for better project visualization.
+## 🎥 Project Presentation
+📊 **Presentation Slides**
 
-2.Features
+https://1drv.ms/p/c/2034eba96d41ae6d/IQDLALWWZXjTR54-qwvPGL7TASylUsqkiKegLfYbBQpyslQ?e=tqYv6h
 
-AI-powered email classification using a fine-tuned BERT model
+---
 
-Detection of SAFE and NON-SAFE emails
+## 🚀 Key Features
+* **AI-Powered Classification** using a fine-tuned **BERT model**
+* **Security Detection** for SAFE and NON-SAFE emails
+* **Email Category Identification** (phishing, scam, promotional, etc.)
+* **Modern Glassmorphism UI** with dynamic animations
+* **Confidence Score Gauge Visualization**
+* **Session-Based Email History Tracking**
 
-Rule-based email category identification
+---
 
-Modern animated UI with Glassmorphism design
+## 📸 Application Screenshots
 
-Confidence score visualization using a gauge meter
+### User Interface
 
-Session-based email history tracking
+![Aether Scan Interface](static/screenshots/UI_INTERFACE1.png)
 
-Dynamic background animations
+### Email Analysis Result
 
-Email Categories Supported
+![Aether Scan Result](static/screenshots/UI_INTERFACE2.png)
 
-Phishing
+---
 
-Promotional
+## 📂 Email Categories Supported
 
-Scam / Fraud
+- Phishing  
+- Promotional  
+- Scam / Fraud  
+- Security Alert  
+- General / Safe Communication  
 
-Security Alert
+---
 
-General / Safe Communication
+## 🛠 Tech Stack
 
-3.Tech Stack
+**Backend**
+- Django (Python)
 
-Backend
-Django (Python)
+**Machine Learning**
+- BERT (Fine-Tuned)
+- PyTorch
+- HuggingFace Transformers
 
-Machine Learning
-Fine-tuned BERT
-PyTorch
-HuggingFace Transformers
+**Frontend**
+- HTML5
+- CSS3
+- JavaScript
+- Bootstrap
 
-Frontend
-HTML
-CSS
-JavaScript
-Bootstrap
+**Deployment**
+- WhiteNoise for static files
 
-4.Deployment
-Django production-ready setup
+---
 
-Project Structure
+## 📂 Project Structure
+
+```text
 email_classifier/
 │
-├── classifier/
+├── classifier/              # Core Django app logic
 │   ├── views.py
 │   ├── urls.py
-│   └── ...
 │
-├── email_classifier/
+├── email_classifier/        # Django project configuration
 │
-├── model/                 (Ignored in GitHub)
+├── model/                   # BERT model directory (not included in repo)
 │
 ├── static/
-│   └── images/
+│   └── screenshots/
+│       ├── UI_INTERFACE1.PNG
+│       └── UI-INTERFACE2.PNG
 │
 ├── templates/
 │   └── index.html
@@ -80,85 +95,126 @@ email_classifier/
 ├── manage.py
 ├── db.sqlite3
 └── README.md
-Model Handling (Important)
+```
 
-The trained BERT model is not included in this GitHub repository to avoid large file issues.
+---
 
-Model Download Link (Required)
+## 🤖 Model Handling (Important)
+
+The trained **BERT model is not included in this GitHub repository** to avoid large file issues.
+
+### Download Model
+
 https://drive.google.com/file/d/1MxN9aEQr9QUmCy1cxAbTCNaPnvIH4ptx/view?usp=drive_link
 
-After downloading:
+---
 
-Extract the ZIP file
+### After Downloading
 
-Place the extracted folder inside
+Extract the ZIP and place it inside:
 
+```
 email_classifier/model/
+```
 
 Expected structure:
 
+```text
 model/
 └── phishing_bert_final/
     ├── config.json
     ├── pytorch_model.bin
     ├── tokenizer.json
     └── vocab.txt
-Installation & Setup
+```
 
-Clone the repository
+---
 
-git clone <repository-url>
+## ⚙️ Installation & Setup
+
+### Clone Repository
+
+```bash
+git clone <your-repository-url>
 cd email_classifier
+```
 
-Create a virtual environment
+### Create Virtual Environment
 
+```bash
 python -m venv venv
+```
 
-Activate it
+### Activate Environment
 
-Windows
+**Windows**
 
+```bash
 venv\Scripts\activate
+```
 
-Mac / Linux
+**Mac / Linux**
 
+```bash
 source venv/bin/activate
+```
 
-Install dependencies
+### Install Dependencies
 
+```bash
 pip install django torch transformers whitenoise
+```
 
-Apply migrations
+### Run Migrations
 
+```bash
 python manage.py migrate
+```
 
-Run the server
+### Run Server
 
+```bash
 python manage.py runserver
+```
 
-Open in browser
+Open in browser:
 
+```
 http://127.0.0.1:8000/
-How It Works
+```
 
-User enters email text
+---
 
-BERT model predicts SAFE or NON-SAFE status
+## ⚡ How It Works
 
-Confidence score is generated
+1. User enters email text  
+2. BERT tokenizer processes the text  
+3. Fine-tuned BERT predicts **SAFE / NON-SAFE**  
+4. Confidence score is generated  
+5. Rule-based logic assigns email category  
+6. UI updates with prediction, category, gauge meter, and history
 
-Rule-based logic assigns email category
+---
 
-UI updates with gauge meter, status, category, and history
+## 🔮 Future Scope
 
-5.Future Scope
+- Multi-class deep learning classification
+- **OCR-based email attachment scanning**
+- **Explainable AI for model transparency**
+- Integration with **real email clients**
+- Cloud deployment
+- Mobile application support
 
-Multi-class email classification
+---
 
-OCR-based text extraction from images and attachments
+## 👩‍💻 Project Contributor
 
-Explainable AI for prediction reasoning
+**Khushi Singh**  
+B.Tech Computer Science (AI & ML)  
+AKS University, Satna  
 
-Real-time email client integration
+**Program:** IBM Tecnovate Internship
 
-Cloud deployment and mobile support
+---
+
+⭐ If you find this project useful, consider giving it a **star on GitHub**.
